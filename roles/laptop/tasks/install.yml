@@ -6,7 +6,6 @@
       - "{{ terminal_emulator }}"
       - "git"
       - "curl"
-      - "foliate"
       - "gnupg2"
   become: yes
 
@@ -17,6 +16,7 @@
   with_items:
     - "{{ browser.application }}"
     - "wonderwall"
+    - "foliate"
   become: yes
 
 - name: Install edge channel software with Snap
