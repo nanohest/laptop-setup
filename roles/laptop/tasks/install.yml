@@ -1,0 +1,54 @@
+---
+- name: Install packages with native package manager
+  package:
+    name:
+      - "{{ shell }}"
+      - "{{ terminal_emulator }}"
+      - "git"
+      - "curl"
+      - "foliate"
+      - "gnupg2"
+  become: yes
+
+- name: Install stable channel software with Snap
+  snap:
+    name:
+      - "{{ item }}"
+  with_items:
+    - "{{ browser.application }}"
+    - "wonderwall"
+  become: yes
+
+- name: Install edge channel software with Snap
+  snap:
+    channel: "edge"
+    name:
+      - "{{ item }}"
+  with_items:
+    - gopass
+  become: yes
+
+- name: Install classic confinement Snaps
+  snap:
+    classic: yes
+    name:
+      - "{{ item }}"
+  with_items:
+    - "{{ editor }}"
+    - "microk8s"
+    - "kata-containers"
+    - "slack"
+  become: yes
+
+- name: Install software with pip
+  pip:
+    extra_args: "--user"
+    executable: "/usr/bin/pip3"
+    name:
+      - "awscli"
+
+- name: Download git-town
+  get_url:
+    url: https://github.com/Originate/git-town/releases/download/{{ gittown_version }}/git-town-linux-amd64
+    dest: "{{ user_bin_dir }}/git-town"
+    mode: '0550'

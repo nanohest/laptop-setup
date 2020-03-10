@@ -1,0 +1,23 @@
+---
+- name: Set default shell
+  user:
+    name: "{{ ansible_user }}"
+    shell: "/usr/bin/{{ shell }}"
+  become: true
+
+- name: Configure my favorite shell
+  template:
+    src: fish.config.j2
+    dest: ~/.config/fish/config
+
+# Generate an OpenSSH rsa keypair
+- openssh_keypair:
+    path: ~/.ssh/ssh_id_rsa_awesome_laptop
+    size: "{{ ssh_key_size }}"
+    comment: "{{ email }}"
+    mode: '0600'
+
+- name: Set default browser
+  template:
+    src: mimeapps.list.j2
+    dest: ~/.config/mimeapps.list

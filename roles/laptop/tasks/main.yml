@@ -1,0 +1,9 @@
+---
+- name: setup Flatpak
+  include_tasks: flatpak.yml
+
+- name: Install my favorite software
+  include_tasks: install.yml
+
+- name: Configure my system
+  include_tasks: configure.yml

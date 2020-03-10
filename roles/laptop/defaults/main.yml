@@ -1,0 +1,15 @@
+# Personal information
+email: kristian@efio.dk
+
+# Applications
+editor: atom
+browser:
+  application: brave
+  mime_desktop_app: brave_brave.desktop
+terminal_emulator: tilix
+shell: fish
+gittown_version: v7.3.0
+
+# System configuration
+user_bin_dir: ~/.local/bin
+ssh_key_size: 4096

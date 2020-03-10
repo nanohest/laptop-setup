@@ -1,0 +1,5 @@
+- name: Setup my awesome developer laptop
+  hosts: localhost
+  gather_facts: yes
+  roles:
+    - laptop
