@@ -1,0 +1,33 @@
+---
+- name: Install preliminary packages
+  package:
+      name:
+        - "curl"
+        - "apt-transport-https"
+  become: yes
+
+- name: Add Apt signing key for gopass
+  apt_key:
+    url: https://api.bintray.com/orgs/gopasspw/keys/gpg/public.key
+    state: present
+  become: yes
+
+- name: Add gopasspw apt repository
+  apt_repository:
+    repo: deb https://dl.bintray.com/gopasspw/gopass trusty main
+    state: present
+    filename: gopasspw
+  become: yes
+
+- name: Add Apt signing key for brave
+  apt_key:
+    url: https://brave-browser-apt-release.s3.brave.com/brave-core.asc
+    state: present
+  become: yes
+
+- name: Add brave apt repository
+  apt_repository:
+    repo: deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main
+    state: present
+    filename: brave-browser
+  become: yes

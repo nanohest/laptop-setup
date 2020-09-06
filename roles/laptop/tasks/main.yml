@@ -1,4 +1,7 @@
 ---
+- name: setup apt repositories
+  include_tasks: apt_repo.yml
+
 - name: setup Flatpak
   include_tasks: flatpak.yml
 
