@@ -5,10 +5,22 @@
     shell: "/usr/bin/{{ shell }}"
   become: true
 
+- name: ensure fish completions directory
+  file:
+    path: "{{ fish_completions_dir }}"
+    state: directory
+    mode: 0755
+
 - name: Configure my favorite shell
   template:
     src: fish.config.j2
-    dest: ~/.config/fish/config
+    dest: ~/.config/fish/config.fish
+
+- name: Configure fish-gopass completion
+  copy:
+    src: gopass.fish
+    dest: "{{ fish_completions_dir }}/gopass.fish"
+    mode: 0644
 
 # Generate an OpenSSH rsa keypair
 - openssh_keypair:
