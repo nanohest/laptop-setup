@@ -5,8 +5,9 @@
       - "{{ shell }}"
       - "{{ terminal_emulator }}"
       - "git"
-      - "curl"
       - "gnupg2"
+      - "{{ browser.application }}"
+      - "gopass"
   become: yes
 
 - name: Install stable channel software with Snap
@@ -14,18 +15,18 @@
     name:
       - "{{ item }}"
   with_items:
-    - "{{ browser.application }}"
     - "wonderwall"
     - "foliate"
   become: yes
 
 - name: Install edge channel software with Snap
   snap:
+    classic: yes
     channel: "edge"
     name:
       - "{{ item }}"
   with_items:
-    - gopass
+    - go
   become: yes
 
 - name: Install classic confinement Snaps
@@ -49,6 +50,17 @@
 
 - name: Download git-town
   get_url:
-    url: https://github.com/Originate/git-town/releases/download/{{ gittown_version }}/git-town-linux-amd64
+    url: "https://github.com/Originate/git-town/releases/download/{{ gittown_version }}/git-town-linux-amd64"
     dest: "{{ user_bin_dir }}/git-town"
     mode: '0550'
+
+- name: Download Terraform
+  get_url:
+    url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
+    dest: "/tmp/terraform.zip"
+    mode: '0550'
+
+- name: Unzip terraform
+  unarchive:
+    src: "/tmp/terraform.zip"
+    dest: "{{ user_bin_dir }}"
